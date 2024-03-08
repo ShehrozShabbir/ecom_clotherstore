@@ -1,15 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Frontend\MainController;
 use App\Http\Controllers\Admin\AdminController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\CartController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SizeController;
+use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\frontend\AccountController;
+use App\Http\Controllers\Frontend\MainController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,55 +50,88 @@ Route::post('reset-password', [LoginController::class, 'resetPasswordCh'])->name
 
 
 
-Route::group(['as' => 'admin.','middleware'=>'auth'], function () {
-    Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
-    Route::post('admin/disable', [AdminController::class, 'disableIdBy'])->name('disableIdBy');
-    Route::get('profile', [AdminController::class, 'profile'])->name('profile');
-    Route::post('profile', [AdminController::class, 'profileUpdate'])->name('profile.update');
-    Route::get('/dashboard/add-brand', function () {
-        return view('admin.add-brand');
-    })->name('add.brand');
+Route::group(
+    ['as' => 'admin.', 'middleware' => ['auth', 'admin'], 'prefix' => 'admin'],
+    function () {
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::post('/disable', [AdminController::class, 'disableIdBy'])->name('disableIdBy');
+        Route::get('profile', [AdminController::class, 'profile'])->name('profile');
+        Route::post('profile', [AdminController::class, 'profileUpdate'])->name('profile.update');
+        Route::get('/brand/create', function () {
+            return view('admin.add-brand');
+        })->name('add.brand');
 
-    Route::post('/dashboard/store-brand', [BrandController::class, 'store'])->name('store.brand');
-    Route::delete('/brands/{id}', [BrandController::class, 'destroy'])->name('delete.brand');
-    Route::get('/dashboard/edit-brand', [BrandController::class, 'editBrandPage'])->name('edit.brand.page');
+        Route::post('/store-brand', [BrandController::class, 'store'])->name('store.brand');
+        Route::delete('/brand/{id}', [BrandController::class, 'destroy'])->name('delete.brand');
+        Route::get('/brand', [BrandController::class, 'editBrandPage'])->name('edit.brand.page');
+        Route::get('/brand/list', [BrandController::class, 'list'])->name('brands.list');
+        Route::get('/brand/edit/{id}', [BrandController::class, 'editBrand'])->name('edit.brand');
+        Route::patch('/update-brand/{id}', [BrandController::class, 'updateBrand'])->name('update.brand');
 
-    Route::get('/dashboard/update-brand/{id}', [BrandController::class, 'editBrand'])->name('edit.brand');
-    Route::patch('/dashboard/update-brand/{id}', [BrandController::class, 'updateBrand'])->name('update.brand');
+        Route::get('/category/create', [CategoryController::class, 'create'])->name('category.create');
+        Route::get('/category/edit/{id}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
+        Route::get('/category/list', [CategoryController::class, 'list'])->name('category.list');
 
-    Route::get('/category', [CategoryController::class, 'create'])->name('category.create');
-    Route::get('/category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/categories/list', [CategoryController::class, 'list'])->name('category.list');
+        Route::get('/product', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/products/{id}', [ProductController::class, 'showProduct'])->name('products.show');
+        Route::get('/product/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+        Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/product/{id}', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+        Route::get('/product/manage/{id?}', [ProductController::class, 'manage'])->name('product.manage');
+        Route::get('/product/list', [ProductController::class, 'list'])->name('product.list');
+        Route::delete('/product/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
 
-    Route::get('/dashboard/brands', [BrandController::class, 'list'])->name('brands.list');
-    Route::get('/category', [CategoryController::class, 'create'])->name('category.create');
-    Route::get('/category/{id}', [CategoryController::class, 'edit'])->name('category.edit');
-    Route::post('/category', [CategoryController::class, 'store'])->name('category.store');
-    Route::get('/categories/list', [CategoryController::class, 'list'])->name('category.list');
+        Route::get('/product', [ProductController::class, 'index'])->name('products.index');
 
+        Route::get('/order', [OrderController::class, 'index'])->name('orders.index');
+        Route::get('/orders/{status?}', [OrderController::class, 'orderStatus'])->name('orders_status');
+        Route::get('/order/{id}', [OrderController::class, 'view'])->name('orders.view');
+        Route::post('/order/status', [OrderController::class, 'status'])->name('orders.status');
+        Route::post('/order/payment', [OrderController::class, 'payment'])->name('orders.payment');
+        Route::get('/order/view/{id}', [OrderController::class, 'viewOrderDetails'])->name('orders.view_details');
 
-Route::get('/products', [ProductController::class, 'index'])->name('products.index');
-    Route::get('/products/create', [ProductController::class, 'create'])->name('products.create');
-    Route::post('/products', [ProductController::class, 'store'])->name('product.store');
-    Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
-    Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
-    Route::delete('products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-    Route::get('/admin/products/manage/{id?}', [ProductController::class, 'manage'])->name('product.manage');
-    Route::get('products', [ProductController::class, 'list'])->name('product.list');
-    Route::delete('admin/products/{id}', [ProductController::class, 'destroy'])->name('product.destroy');
+        // For creating a new order
+        Route::get('/orders/dispatch/create/{id?}', [OrderController::class, 'dispatchOrder'])->name('orders.dispatch.create');
+        Route::post('/orders/dispatch', [OrderController::class, 'dispatchOrderStore'])->name('orders.dispatch.store');
 
-    Route::get('/admin/orders', [OrderController::class, 'index'])->name('orders.index');
-    Route::get('/admin/order/{id}', [OrderController::class, 'view'])->name('orders.view');
-    Route::post('/admin/orders/status', [OrderController::class, 'status'])->name('orders.status');
-    Route::post('/admin/orders/payment', [OrderController::class, 'payment'])->name('orders.payment');
+        // For reading an existing order
+        Route::get('/orders/dispatch/list', [OrderController::class, 'dispatchOrderList'])->name('orders.dispatch.index');
+        // Route::get('/orders/dispatch/{id}', [OrderController::class, 'dispatchOrderShow'])->name('orders.dispatch.show');
 
-    // size routes
-    Route::get('/admin/size/create', [SizeController::class, 'create'])->name('size.create');
-    Route::post('/admin/size/store', [SizeController::class, 'store'])->name('size.store');
-    Route::get('/admin/size/list', [SizeController::class, 'list'])->name('size.list');
-    Route::delete('/admin/size/delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
-    Route::get('/admin/size/edit/{id}', [SizeController::class, 'edit'])->name('size.edit');
-    Route::put('/admin/size/update/{id}', [SizeController::class, 'update'])->name('size.update');
-}
+        // // For editing an existing order
+        Route::get('/orders/dispatch/{id}/edit', [OrderController::class, 'dispatchOrderEdit'])->name('orders.dispatch.edit');
+        Route::put('/orders/dispatch/{id}', [OrderController::class, 'dispatchOrderUpdate'])->name('orders.dispatch.update');
+
+        // // For deleting an existing order
+        Route::delete('/orders/dispatch/{id}', [OrderController::class, 'dispatchOrderDestroy'])->name('orders.dispatch.destroy');
+
+        // size routes
+        Route::get('/size/create', [SizeController::class, 'create'])->name('size.create');
+        Route::post('/size/store', [SizeController::class, 'store'])->name('size.store');
+        Route::get('/size/list', [SizeController::class, 'list'])->name('size.list');
+        Route::delete('/size/delete/{id}', [SizeController::class, 'delete'])->name('size.delete');
+        Route::get('/size/edit/{id}', [SizeController::class, 'edit'])->name('size.edit');
+        Route::put('/size/update/{id}', [SizeController::class, 'update'])->name('size.update');
+
+        Route::get('/slider/create', [SliderController::class, 'create'])->name('sliders.create');
+        Route::post('/slider', [SliderController::class, 'store'])->name('sliders.store');
+        Route::get('/slider/edit/{id}', [SliderController::class, 'edit'])->name('sliders.edit');
+        Route::put('/slider/{id}', [SliderController::class, 'update'])->name('sliders.update');
+        Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('sliders.destroy');
+        Route::get('/slider/list', [SliderController::class, 'list'])->name('sliders.list');
+
+        Route::get('/pending/discount', [ProductController::class, 'manageDiscounts'])->name('discounts.manage');
+        Route::put('/discounts/{id}', [ProductController::class, 'updateDiscount'])->name('discounts.update');
+        Route::get('/discount/edit/{product}', [ProductController::class, 'editDiscount'])->name('discounts.edit');
+        Route::get('/discount/discounted-product/edit/{discount}', [ProductController::class, 'editDiscountedProduct'])->name('discount.discounted-product.edit');
+        Route::put('/discount/discounted-product/update/{discount}', [ProductController::class, 'updateDiscountedProduct'])->name('discount.discounted-product.update');
+        Route::post('/discount/products', [ProductController::class, 'discountOnProducts'])->name('discounts.product');
+        Route::get('/discount/creatediscount', [ProductController::class, 'createDiscount'])->name('discount.creatediscount');
+        Route::post('/discount/store', [ProductController::class, 'storeDiscount'])->name('discount.store');
+        Route::get('/discounted-products', [ProductController::class, 'discountedProductList'])->name('discount.discounted_products');
+
+    }
 )->middleware('auth');

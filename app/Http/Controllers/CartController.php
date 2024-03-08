@@ -32,22 +32,33 @@ class CartController extends Controller
                     "payment_type" => 'cod',
                     "payment_status" => 'pending',
                     "order_status" => 'pending',
+                    "user_id" => (auth()->check())?auth()->id():0, // Assign the user ID to the user_id field
                 ]);
 
 
-                foreach (session('cart') as $id => $details):
-                    OrderItem::create([
-                        "order_id" => $order->id,
-                        "product_id" => $details['id'],
-                        "quantity" => $details['quantity'],
-                        "size" => $details['size'],
-                        "price" => $details['price'],
-                        "discount" =>0,
-                        "total" => $details['quantity']*$details['price'],
-                    ]);
-                endforeach;
+               
+            foreach (session('cart') as $id => $details) {
+                $product = Product::find($details['id']);
+                if ($product) {
+                    $metaData = json_decode($product->product_meta, true);
+                    if ($metaData[$details['size']]) {
+                        $metaData[$details['size']]['stock_quantity'] = (int)$metaData[$details['size']]['stock_quantity'] - (int)$details['quantity'];
+                        $product->update(['product_meta' => json_encode($metaData)]);
+                        OrderItem::create([
+                            'user_id' =>  (auth()->check())?auth()->id():0,
+                            "order_id" => $order->id,
+                            "product_id" => $details['id'],
+                            "quantity" => $details['quantity'],
+                            "size" => $details['size'],
+                            "price" => $details['price'],
+                            "discount" => 0,
+                            "total" => $details['quantity'] * $details['price'],
+                        ]);
+                    }
+                }
+            }
 
-                $response = ['message' => 'Order Has been created Your Order Id is #'.$order->id, 'status' => 'success'];
+                $response = ['message' => 'Order Has been created Your Order Id is SP#00'.$order->id, 'status' => 'success'];
                 session()->forget('cart');
             } else {
                 $response = ['message' => 'There is not Order in Cart', 'status' => 'error'];

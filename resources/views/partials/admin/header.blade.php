@@ -1,4 +1,4 @@
- <nav class="navbar navbar-expand-lg main-navbar" style="background: #024270;">
+ <nav class="navbar navbar-expand-lg main-navbar d-print-none" style="background: #024270;">
         <form class="form-inline mr-auto ">
           <ul class="navbar-nav mr-3">
             <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>

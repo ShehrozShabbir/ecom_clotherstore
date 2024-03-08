@@ -19,6 +19,10 @@ class Order extends Model
         'payment_status',
         'order_status',
         'order_notes',
+        'user_id',
     ];
-    
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

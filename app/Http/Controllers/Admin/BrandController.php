@@ -35,7 +35,7 @@ class BrandController extends Controller
             flashy()->error('An error occurred while adding the brand.','#');
         }
 
-        return redirect('/dashboard/add-brand');
+        return redirect()->back();
     }
 
     public function editBrandPage()
