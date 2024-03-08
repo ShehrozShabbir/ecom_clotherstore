@@ -43,7 +43,7 @@
         <div class="row">
             <div class="col-sm-4 p-0  ">
                <div class="vh-50 bg-dark d-flex justify-content-center align-items-center">
-                <a href="/shop"><h3 class="text-white">Men's <br> Collections</h3></a>
+                <a href="{{route('shop',['main'=>'men'])}}"><h3 class="text-white">Men's <br> Collections</h3></a>
                </div>
                <div class="vh-50">
                 <img src="{{url("frontend/img/banner/banner5.jpg")}}" style="height: 100%;width:100%" class="img-fluid" alt="">
@@ -54,13 +54,13 @@
                     <img src="{{url("frontend/img/banner/banner4.jpg")}}" style="height: 100%;width:100%" class="img-fluid" alt="">
                    </div>
                 <div class="vh-50 bg-dark d-flex justify-content-center align-items-center">
-                 <a href="/shop"><h3 class="text-white">Women's <br> Collections</h3></a>
+                 <a href="{{route('shop',['main'=>'women'])}}"><h3 class="text-white">Women's <br> Collections</h3></a>
                 </div>
 
              </div>
              <div class="col-sm-4 p-0  ">
                 <div class="vh-50 bg-dark d-flex justify-content-center align-items-center">
-                 <a href="/shop"><h3 class="text-white">Accessories's <br> Collection</h3></a>
+                 <a href="{{route('shop',['main'=>'accessories'])}}"><h3 class="text-white">Accessories's <br> Collection</h3></a>
                 </div>
                 <div class="vh-50">
                  <img src="{{url("frontend/img/banner/banner6.jpg")}}" style="height: 100%;width:100%" class="img-fluid" alt="">

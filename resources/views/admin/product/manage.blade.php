@@ -145,7 +145,7 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <label for="stock_quantity">Stock Quantity:</label>
-                                        <input type="number" name="stock_quantity" class="form-control" required
+                                        <input type="number" name="stock_quantity[]" class="form-control" required
                                             value="{{ old('stock_quantity', $product->stock_quantity ?? '') }}" />
                                     </div>
                                 </div>

@@ -159,7 +159,7 @@
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
                                     <a onclick="adding_cart('add','{{$product->id}}',1,`{{$product->size}}`)" href="javascript:void(0)" class="add-cart">+ Add To Cart</a>
-                                    <h5>PKR {{$product->selling_price}}</h5>
+                                    <h5>LKR {{$product->selling_price}}</h5>
                                 </div>
                             </div>
                         </div>

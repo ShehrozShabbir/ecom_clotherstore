@@ -59,8 +59,11 @@ class ProductController extends Controller
                 $validatedData['buying_price'] = $request->buying_price[$key];
                 $validatedData['stock_quantity'] = $request->stock_quantity[$key];
             }
-            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' => (int)$request->stock_quantity[$key]];
+            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' => $request->stock_quantity[$key]];
         }
+        $Category=Category::find($request->category_id);
+
+        $validatedData['main_category']=$Category->main_category;
         $validatedData['product_meta'] = json_encode($metaData);
         $product = Product::create($validatedData);
 

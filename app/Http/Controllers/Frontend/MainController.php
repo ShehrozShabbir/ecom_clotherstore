@@ -18,7 +18,7 @@ class MainController extends Controller
         $products = Product::take(10)->get();
         $hotProducts = Product::where('product_label', 'hot')->take(4)->get();
         $saleProducts = Product::where('product_label', 'sale')->take(4)->get();
-        return view('frontend.index', compact('products', 'hotProducts', 'saleProducts'));
+        return view('frontend.home', compact('products', 'hotProducts', 'saleProducts'));
     }
     public function shop(Request $request)
     {
@@ -31,6 +31,7 @@ class MainController extends Controller
         if (!$price_sort) {
             $price_sort='latest';
         }
+    
         if ($price_sort=="low_to_high") {
             $o_column = 'selling_price';
             $o_order = 'ASC';
@@ -61,6 +62,9 @@ class MainController extends Controller
         }
         if ($request->has('size')) {
             $query->where('size', $request->input('size'));
+        }
+        if ($request->has('main')) {
+            $query->where('main_category', $request->input('main'));
         }
 
         if ($request->has('price_range')) {
