@@ -38,37 +38,47 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $total=0;
+                                        $total = 0;
                                     @endphp
                                     @if (session('cart'))
                                         @foreach (session('cart') as $id => $details)
-                                        @php
-                                               $total+= $details['price']*$details['quantity'];
-                                        @endphp
+                                            @php
+                                             $NewAmount =
+                                                            $details['price'] -
+                                                            ($details['price'] * $details['discount']) / 100;
+                                                $total += $NewAmount * $details['quantity'];
+                                            @endphp
                                             <tr>
                                                 <td class="product__cart__item">
                                                     <div class="product__cart__item__pic">
                                                         <img style="width: 100px" src="{{ $details['image'] }}"
                                                             alt="">
                                                     </div>
+                                                 
                                                     <div class="product__cart__item__text">
                                                         <h6>{{ $details['name'] }}</h6>
-                                                        <h5>RS {{ $details['price'] }}</h5>
+                                                        <h5>LKR {{ $NewAmount }}</h5>
+                                                        @if ($details['discount'] > 0)
+                                                            <h6 class="text-muted ml-2">
+                                                                <del>{{ $details['price'] }}</del>
+                                                            </h6>
+                                                        @endif
+                                                        <h6>Size : {{ $details['size'] }}</h6>
                                                     </div>
                                                 </td>
                                                 <td class="quantity__item">
                                                     <div class="quantity">
                                                         <div class="pro-qty-2">
                                                             <span class="fa fa-angle-left dec qtybtn"></span>
-                                                            <input rowId="{{ $details['id'] }}" class="update-cart-items"
+                                                            <input rowId="{{ $id }}" class="update-cart-items"
                                                                 type="text" value="{{ $details['quantity'] }}">
                                                             <span class="fa fa-angle-right inc qtybtn"></span>
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td class="cart__price">{{ $details['quantity'] * $details['price'] }} rs
+                                                <td class="cart__price">{{ $details['quantity'] * $NewAmount }} LKR
                                                 </td>
-                                                <td class="cart__close"><i proId="{{$details['id']}}"
+                                                <td class="cart__close"><i proId="{{ $details['id'] }}"
                                                         class="fa fa-close delete-product"></i></td>
                                             </tr>
                                         @endforeach
@@ -85,7 +95,7 @@
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="continue__btn update__btn">
-                                    <a href="{{route('clear.cart')}}"><i class="fa fa-spinner"></i> Clear cart</a>
+                                    <a href="{{ route('clear.cart') }}"><i class="fa fa-spinner"></i> Clear cart</a>
                                 </div>
                             </div>
                         </div>
@@ -95,8 +105,8 @@
                         <div class="cart__total">
                             <h6>Cart total</h6>
                             <ul id="cartMenu">
-                                <li>Subtotal <span>{{$total}} rs</span></li>
-                                <li>Total <span>{{$total}} rs</span></li>
+                                <li>Subtotal <span>{{ $total }} LKR</span></li>
+                                <li>Total <span>{{ $total }} LKR</span></li>
                             </ul>
                             <a href="{{ route('checkout') }}" class="primary-btn">Proceed to checkout</a>
                         </div>

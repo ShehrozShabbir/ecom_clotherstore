@@ -84,7 +84,7 @@ class MainController extends Controller
 
     public function shopDetails($prod_name, $prod_id)
     {
-        $product = Product::find(decrypt($prod_id))->first();
+        $product = Product::find(decrypt($prod_id));
         $relatedProducts = Product::where('category_id', $product->category_id)->take(10)->get();
         return view('frontend.shop-details', compact('product', 'relatedProducts'));
     }

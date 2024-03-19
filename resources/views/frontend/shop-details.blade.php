@@ -38,7 +38,7 @@
                                 @foreach ($product->images as $key => $image)
                                 <div class="tab-pane  @if ($loop->first) active @endif " id="tabs-{{ $key }}" role="tabpanel">
                                     <div class="product__details__pic__item">
-                                        <img src="{{ url($image->image_path) }}" alt="">
+                                        <img style="max-height: 350px;" src="{{ url($image->image_path) }}" alt="">
                                     </div>
                                 </div>
                                 @endforeach
@@ -155,7 +155,7 @@
                             <div class="product__item__text">
                                 <h6>{{$product->name}}</h6>
                                 <a onclick="adding_cart('add','{{$product->id}}',1,`{{$product->size}}`)" href="javascript:void(0)" class="add-cart">+ Add To Cart</a>
-                                <h5>PKR {{$product->selling_price}}</h5>
+                                <h5>LKR {{$product->selling_price}}</h5>
                             </div>
                         </div>
                     </div>

@@ -158,8 +158,12 @@
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
+                                    @php
+                                    $NewAmount= $product->selling_price-($product->selling_price*$product->discount)/100;
+                                    @endphp
                                     <a onclick="adding_cart('add','{{$product->id}}',1,`{{$product->size}}`)" href="javascript:void(0)" class="add-cart">+ Add To Cart</a>
-                                    <h5>LKR {{$product->selling_price}}</h5>
+                                    <h5>LKR {{$NewAmount}}</h5>@if ($product->discount>0)<h6 class="text-muted ml-2">
+                                        <del>{{$product->selling_price}}</del></h6>@endif
                                 </div>
                             </div>
                         </div>
