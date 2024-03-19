@@ -15,7 +15,7 @@
                                 <a href="#">FAQs</a> --}}
                             </div>
                             <div class="header__top__hover">
-                                <span>LRK <i class="arrow_carrot-down"></i></span>
+                                <span>LKR <i class="arrow_carrot-down"></i></span>
                                 <ul>
                                     <li>LKR</li>
 
@@ -60,7 +60,7 @@
                                 </ul>
                             </li>
                             <li class="{{ request()->routeIs('accessoires') ? 'active' : '' }}">
-                                <a href="#">ACCESSOIRES</a>
+                                <a href="#" class="upper-case">ACCESSORIES</a>
                                 <ul class="dropdown">
                                     @foreach ($mainCategories['accesCategories'] as $category)
                                     <li><a href="/shop?category-name={{$category->name}}&cid={{encrypt($category->id)}}">{{$category->name}}</a></li>

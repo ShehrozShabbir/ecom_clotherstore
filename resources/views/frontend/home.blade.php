@@ -60,7 +60,7 @@
              </div>
              <div class="col-sm-4 p-0  ">
                 <div class="vh-50 bg-dark d-flex justify-content-center align-items-center">
-                 <a href="{{route('shop',['main'=>'accessories'])}}"><h3 class="text-white">Accessories's <br> Collection</h3></a>
+                 <a href="{{route('shop',['main'=>'accessories'])}}"><h3 class="text-white">Accessories</h3></a>
                 </div>
                 <div class="vh-50">
                  <img src="{{url("frontend/img/banner/banner6.jpg")}}" style="height: 100%;width:100%" class="img-fluid" alt="">
