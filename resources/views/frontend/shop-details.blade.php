@@ -116,7 +116,7 @@
                                             <p class="note"></p>
                                             <div class="product__details__tab__content__item">
                                                 <h5>Products Infomation</h5>
-                                                <p>{{$product->description}}.</p>
+                                                <p>{{$product->details}}.</p>
 
                                             </div>
 
