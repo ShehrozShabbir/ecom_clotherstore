@@ -196,7 +196,7 @@
     // proQty.append('<span class="fa fa-angle-right inc qtybtn"></span>');
     proQty.on("click", ".qtybtn", function () {
         alert('da');
-        var $button = $(this);
+         var $button = $(this);
         var oldValue = $button.parent().find("input").val();
         if ($button.hasClass("inc")) {
             var newVal = parseFloat(oldValue) + 1;

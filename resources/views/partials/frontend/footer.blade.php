@@ -10,9 +10,10 @@
                     <div class="footer__about">
                         <div class="footer__logo">
 
-                            <a href="/"><img style="width: 220px" class="img-fluid" src="{{url('logo/white-01.png')}}" alt=""></a>
+                            <a href="/"><img  class="img-fluid" src="{{url('logo/ESPARTA_1.png')}}" alt=""></a>
+
                         </div>
-                         <p></p>
+                         <p>Things you needed All are available here Just Shop now.</p>
 
                     </div>
                 </div>

@@ -3,7 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title> @yield('title')</title>
+    <title>@yield('title') &mdash; Esparta</title>
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ url('admin/modules/bootstrap/css/bootstrap.min.css') }}">

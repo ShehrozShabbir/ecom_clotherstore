@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3">
                     <div class="header__logo">
-                        <a href="/"><img src="{{url('logo/fs-02.png')}}" style="width: 40px" alt=""></a>
+                        <a href="/"><img src="{{url('logo/ESPARTA.png')}}" style="width: 130px" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -85,7 +85,7 @@
                         @endphp
                         <a href="{{ route('cart') }}"><img src="{{ url('frontend/img/icon/cart.png') }}" alt="">
                             <span>{{ $totalProducts }}</span></a>
-                        <div class="price">{{ $totalCartPrice }}rs</div>
+                        <div class="price">{{ $totalCartPrice }}</div>
                     </div>
                 </div>
             </div>
