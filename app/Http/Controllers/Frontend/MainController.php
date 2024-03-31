@@ -68,7 +68,7 @@ class MainController extends Controller
         }
 
         if ($request->has('price_range')) {
-            $query->whereBetween('selling_price',array($from,$to));
+            $query->whereBetween('discounted_price',array($from,$to));
         }
         $query->orderBy($o_column, $o_order);
         $saleProducts = $query->paginate($perPage);
@@ -124,7 +124,7 @@ class MainController extends Controller
         if (session('cart')) {
             $totalProducts = count(session('cart'));
             $prices = collect(session('cart'))->map(function ($item) {
-                return floatval($item['price'] * $item['quantity']);
+                return floatval($item['discountedPrice'] * $item['quantity']);
             });
             $totalCartPrice = $prices->sum();
         } else {

@@ -63,9 +63,7 @@
                                         <i class="fa fa-ellipsis-v"></i>
                                     </a>
                                     <div class="dropdown-menu">
-                                        <a href="{{ route('admin.products.show', base64_encode($product->id)) }}" class="btn dropdown-item">
-                                            <i class="fas fa-eye"></i> View
-                                        </a>
+                                
                                         <a href="{{ route('admin.products.show', base64_encode($product->id)) }}" class="btn dropdown-item">
                                             <i class="fas fa-eye"></i> View
                                         </a>

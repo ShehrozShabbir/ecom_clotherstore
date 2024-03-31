@@ -57,9 +57,12 @@
                                 <h4>{{$product->name}}</h4>
                                 @php
                                     $metaData=json_decode($product->product_meta,true);
+                                    $NewAmount= reset($metaData)['selling_price']-(reset($metaData)['selling_price']*$product->discount)/100;
+
 
                                 @endphp
-                                <h3 >{{reset($metaData)['selling_price']}}</h3>
+                                <h3 >{{$NewAmount}}</h3>
+
                                 <p>{{$product->category->name}}</p>
                                 <div class="product__details__option">
                                     <div class="product__details__option__size">
@@ -154,8 +157,12 @@
                             </div>
                             <div class="product__item__text">
                                 <h6>{{$product->name}}</h6>
+                                @php
+                                $NewAmount= $product->selling_price-($product->selling_price*$product->discount)/100;
+                                @endphp
                                 <a onclick="adding_cart('add','{{$product->id}}',1,`{{$product->size}}`)" href="javascript:void(0)" class="add-cart">+ Add To Cart</a>
-                                <h5>LKR {{$product->selling_price}}</h5>
+                                <h5>LKR {{$NewAmount}}</h5>@if ($product->discount>0)<h6 class="text-muted ml-2">
+                                    <del>{{$product->selling_price}}</del></h6>@endif
                             </div>
                         </div>
                     </div>
@@ -176,7 +183,10 @@
         $('#size_manage_in').val(value);
         let data=[];
          data={!!$product->product_meta!!};
-         $('.product__details__text>h3').text(data[value]['selling_price']);
+         let discount={!!$product->discount!!}
+         let NewAmount=data[value]['selling_price']-(data[value]['selling_price']*discount)/100;
+      
+         $('.product__details__text>h3').text(NewAmount);
 
         if(data[value]['stock_quantity']>0){
             $('.add-cart-btns').text('Add to Cart');

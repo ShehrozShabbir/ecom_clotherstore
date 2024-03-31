@@ -55,10 +55,13 @@ class ProductController extends Controller
         foreach ($request->size as $key => $value) {
             if ($key == 0) {
                 $validatedData['size'] = $request->size[$key];
+                $NewAmount=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
                 $validatedData['selling_price'] = $request->selling_price[$key];
+                $validatedData['discounted_price'] = $NewAmount;
                 $validatedData['buying_price'] = $request->buying_price[$key];
                 $validatedData['stock_quantity'] = $request->stock_quantity[$key];
             }
+
             $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' => $request->stock_quantity[$key]];
         }
         $Category=Category::find($request->category_id);
@@ -93,8 +96,6 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'size' => 'required',
             'discount' => 'required',
-            'selling_price.*' => 'required|numeric',
-            'buying_price.*' => 'required|numeric',
             'status' => 'required|in:available,not_available',
             'stock_quantity.*' => 'required|integer',
             'product_label' => 'nullable|in:on_sale,hot,feature,new',
@@ -122,7 +123,9 @@ class ProductController extends Controller
         foreach ($request->size as $key => $value) {
             if ($key == 0) {
                 $validatedData['size'] = $request->size[$key];
+                $discounted_price=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
                 $validatedData['selling_price'] = $request->selling_price[$key];
+                $validatedData['discounted_price'] = $discounted_price;
                 $validatedData['buying_price'] = $request->buying_price[$key];
                 $validatedData['stock_quantity'] = $request->stock_quantity[$key];
             }
@@ -141,6 +144,7 @@ class ProductController extends Controller
             'product_meta' => $validatedData['product_meta'],
             'size' => $validatedData['size'],
             'discount' => $validatedData['discount'],
+            'discounted_price' => $validatedData['discounted_price'],
             'status' => $validatedData['status'],
             'product_label' => $validatedData['product_label'],
 

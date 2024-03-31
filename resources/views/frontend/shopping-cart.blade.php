@@ -78,7 +78,7 @@
                                                 </td>
                                                 <td class="cart__price">{{ $details['quantity'] * $NewAmount }} LKR
                                                 </td>
-                                                <td class="cart__close"><i proId="{{ $details['id'] }}"
+                                                <td class="cart__close"><i proId="{{ $id }}"
                                                         class="fa fa-close delete-product"></i></td>
                                             </tr>
                                         @endforeach

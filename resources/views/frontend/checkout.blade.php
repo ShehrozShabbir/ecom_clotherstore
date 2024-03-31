@@ -77,7 +77,7 @@
                                 </label>
                             </div>
                             <div class="checkout__input">
-                                <p>Order notes<span>*</span></p>
+                                <p>Order notes</p>
                                 <input
                                     type="text"
                                     name="order_notes"
@@ -105,7 +105,7 @@
                                                 $details["quantity"] *
                                                     $details["price"]
                                             }}
-                                            rs</span
+                                            LKR</span
                                         >
                                     </li>
                                     @php
@@ -114,10 +114,10 @@
                                 </ul>
                                 <ul class="checkout__total__all">
                                     <li>
-                                        Subtotal <span>{{ $total }} rs</span>
+                                        Subtotal <span>{{ $total }} LKR</span>
                                     </li>
                                     <li>
-                                        Total <span>{{ $total }} rs</span>
+                                        Total <span>{{ $total }} LKR</span>
                                     </li>
                                 </ul>
 
@@ -166,7 +166,7 @@
             dataType:'json',
             beforeSend:function() {
                 $('.order-btn').prop("disabled",true);
-                $('.order-btn').text("PLACEING....");
+                $('.order-btn').text("PLACING THE ORDER");
             },
             success:function (response) {
                if(response.status=='success'){

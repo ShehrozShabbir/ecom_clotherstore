@@ -135,9 +135,9 @@
                                 <div class="shop__product__option__right">
                                     <p>Sort by:</p>
                                     <select id="price_sort">
-                                        <option value="latest">Latest</option>
-                                        <option value="low_to_high">Low To High</option>
-                                        <option value="high_to_low">High To Low</option>
+                                        <option {{($price_sort=="latest")?"selected":""}} value="latest">Latest</option>
+                                        <option {{($price_sort=="low_to_high")?"selected":""}} value="low_to_high">Low To High</option>
+                                        <option {{($price_sort=="high_to_low")?"selected":""}} value="high_to_low">High To Low</option>
 
                                     </select>
                                 </div>
