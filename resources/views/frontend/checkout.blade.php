@@ -103,13 +103,13 @@
                                         <span
                                             >{{
                                                 $details["quantity"] *
-                                                    $details["price"]
+                                                    $details["discountedPrice"]
                                             }}
-                                            LKR</span
+                                             LKR</span
                                         >
                                     </li>
                                     @php
-                                    $total+=$details['price']*$details['quantity'];
+                                    $total+=$details['discountedPrice']*$details['quantity'];
                                     @endphp @endforeach @endif
                                 </ul>
                                 <ul class="checkout__total__all">

@@ -59,10 +59,9 @@ class ProductController extends Controller
                 $validatedData['selling_price'] = $request->selling_price[$key];
                 $validatedData['discounted_price'] = $NewAmount;
                 $validatedData['buying_price'] = $request->buying_price[$key];
-                $validatedData['stock_quantity'] = $request->stock_quantity[$key];
+                $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
-
-            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' => $request->stock_quantity[$key]];
+            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
         }
         $Category=Category::find($request->category_id);
 
@@ -97,7 +96,7 @@ class ProductController extends Controller
             'size' => 'required',
             'discount' => 'required',
             'status' => 'required|in:available,not_available',
-            'stock_quantity.*' => 'required|integer',
+
             'product_label' => 'nullable|in:on_sale,hot,feature,new',
             'images.*' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
