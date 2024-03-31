@@ -114,7 +114,10 @@
 
                                 </ul>
                                 <input type="hidden" name="" id="product_ids" value="{{$product->id}}">
-                                <div class="tab-content">
+                                <input type="hidden" name="" id="product_meta" value="{{$product->product_meta}}">
+                                <input type="hidden" name="" id="product_dic" value="{{$product->discount}}">
+                                <div
+                                 class="tab-content">
                                     <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                         <div class="product__details__tab__content">
                                             <p class="note"></p>
@@ -179,14 +182,15 @@
    <script>
 
      $('.size_manage').click(function(){
-        console.log($(this).val());
+       
         let value=$(this).val();
         $('#size_manage_in').val(value);
-        let data=[];
-         data={!!$product->product_meta!!};
-         let discount={!!$product->discount!!}
+        var data=[];
+         data=JSON.parse($('#product_meta').val());
+         
+         let discount=$('#product_dic').val();
          let NewAmount=data[value]['selling_price']-(data[value]['selling_price']*discount)/100;
-      
+        // console.log(data[value]['selling_price'],NewAmount,discount);
          $('.product__details__text>h3').text(NewAmount);
 
         if(data[value]['stock_quantity']>0){
