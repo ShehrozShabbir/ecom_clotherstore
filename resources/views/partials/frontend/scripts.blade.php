@@ -25,7 +25,7 @@ const Toast = Swal.mixin({
 });
 
     function adding_cart(act,id,quantity,size) {
-
+    
          $.ajax({
               headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

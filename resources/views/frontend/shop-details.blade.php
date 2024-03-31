@@ -12,7 +12,7 @@
                             <div class="product__details__breadcrumb">
                                 <a href="/">Home</a>
                                 <a href="/shop">Shop</a>
-                                <span>{{$product->name}}</span>
+                                <span>{{$product->id}}</span>
                             </div>
                         </div>
                     </div>
@@ -113,6 +113,7 @@
                                     </li>
 
                                 </ul>
+                                <input type="hidden" name="" id="product_ids" value="{{$product->id}}">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="tabs-5" role="tabpanel">
                                         <div class="product__details__tab__content">
@@ -197,9 +198,11 @@
         }
      });
      $('.add-cart-btns').click(function(){
+      
         let newSize=$('#size_manage_in').val();
+        let productID=$('#product_ids').val();
         let newQuantity=$('#selected_quantity').val();
-        adding_cart('add','{{$product->id}}',newQuantity,newSize);
+        adding_cart('add',productID,newQuantity,newSize);
      });
    </script>
 @endpush
