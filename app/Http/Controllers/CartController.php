@@ -32,7 +32,7 @@ class CartController extends Controller
                     "payment_type" => 'cod',
                     "payment_status" => 'pending',
                     "order_status" => 'pending',
-                    "user_id" => (auth()->check())?auth()->id():0, // Assign the user ID to the user_id field
+                    "user_id" => (auth()->check())?auth()->id():1, // Assign the user ID to the user_id field
                 ]);
 
 
@@ -45,7 +45,7 @@ class CartController extends Controller
                         $metaData[$details['size']]['stock_quantity'] = (int)$metaData[$details['size']]['stock_quantity'] - (int)$details['quantity'];
                         $product->update(['product_meta' => json_encode($metaData)]);
                         OrderItem::create([
-                            'user_id' =>  (auth()->check())?auth()->id():0,
+                            'user_id' =>  (auth()->check())?auth()->id():1,
                             "order_id" => $order->id,
                             "product_id" => $details['id'],
                             "quantity" => $details['quantity'],
