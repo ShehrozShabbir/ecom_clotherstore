@@ -32,7 +32,7 @@ class CartController extends Controller
                     "payment_type" => 'cod',
                     "payment_status" => 'pending',
                     "order_status" => 'pending',
-                    "user_id" => (auth()->check())?auth()->id():null, // Assign the user ID to the user_id field
+                    "user_id" => (auth()->check())?auth()->id():0, // Assign the user ID to the user_id field
                 ]);
 
 
