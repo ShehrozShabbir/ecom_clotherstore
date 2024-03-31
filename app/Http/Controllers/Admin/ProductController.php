@@ -127,9 +127,9 @@ class ProductController extends Controller
                 $validatedData['selling_price'] = $request->selling_price[$key];
                 $validatedData['discounted_price'] = $discounted_price;
                 $validatedData['buying_price'] = $request->buying_price[$key];
-                $validatedData['stock_quantity'] = $request->stock_quantity[$key];
+                $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
-            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>(int)$request->stock_quantity[$key]];
+            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
         }
 
         $validatedData['product_meta'] = json_encode($metaData);
@@ -140,7 +140,6 @@ class ProductController extends Controller
             'category_id' => $validatedData['category_id'],
             'selling_price' => $validatedData['selling_price'],
             'buying_price' => $validatedData['buying_price'],
-            'stock_quantity' => $validatedData['stock_quantity'],
             'product_meta' => $validatedData['product_meta'],
             'size' => $validatedData['size'],
             'discount' => $validatedData['discount'],
