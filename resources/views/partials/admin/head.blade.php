@@ -8,6 +8,7 @@
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ url('admin/modules/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('admin/modules/fontawesome/css/all.min.css') }}">
+    <link rel="icon" type="image/x-icon" href="{{url('logo/ESPARTA.png')}}">
 
     <!-- CSS Libraries -->
     <!-- CSS Libraries -->
