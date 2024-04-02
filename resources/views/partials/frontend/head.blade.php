@@ -1,12 +1,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="SPARTHA Ecommerce ...">
+    <meta name="description" content="fashion sphere Ecommerce online store.">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="keywords" content="SPARTHA, SPARTHA.com, creative, html">
+    <meta name="keywords" content="fashionsphere, fashionsphere.shop, t-shirts, trousers">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>SPARTHA</title>
+    <title>Fashion Sphere</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -20,5 +20,5 @@
     <link rel="stylesheet" href="{{url('frontend/css/nice-select.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('frontend/css/owl.carousel.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{url('frontend/css/slicknav.min.css')}}" type="text/css">
-    <link rel="stylesheet" href="{{url('frontend/css/style.css')}}" type="text/css">
+   <link rel="stylesheet" href="{{url('frontend/css/style.css')}}" type="text/css">
 </head>

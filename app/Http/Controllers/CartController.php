@@ -80,13 +80,13 @@ class CartController extends Controller
                 if (isset($cart[$itemKey])) {
                     $cart[$itemKey]['quantity']++;
                 } else {
-                    $NewAmount=$metaData[$request->size]['selling_price']-($metaData[$request->size]['selling_price']*$product->discount)/100;
+                    $discountedPrice=$metaData[$request->size]['selling_price']-($metaData[$request->size]['selling_price']*$product->discount)/100;
                   
                     $cart[$itemKey] = [
                         "name" => $product->name,
                         "id" => $product->id,
                         "size" => $request->size,
-                        "discountedPrice" =>$NewAmount,
+                        "discountedPrice" =>$discountedPrice,
                         "quantity" => 1,
                         "discount" =>$product->discount,
                         "price" => $metaData[$request->size]['selling_price'],
