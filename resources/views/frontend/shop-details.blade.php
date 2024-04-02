@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title',$product->name)
 @section('content')
     <main>
 
@@ -12,7 +13,7 @@
                             <div class="product__details__breadcrumb">
                                 <a href="/">Home</a>
                                 <a href="/shop">Shop</a>
-                                <span>{{$product->id}}</span>
+                                <span>{{$product->name}}</span>
                             </div>
                         </div>
                     </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
+use App\Models\User;
 
 class AdminController extends Controller
 {
@@ -20,4 +22,34 @@ class AdminController extends Controller
 
         return view('admin.dashboard',compact('ordersCount'));
     }
+    public function profile()
+    {
+        return view('profile');
+    }
+    public function profileUpdate(REQUEST $request)
+    {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string|max:30',
+
+            ]);
+            if ($validator->fails()) {
+
+                flashy()->error("Something went wrong", '#');
+                return redirect()->back()->withErrors($validator->messages())->withInput();
+            } else {
+
+                User::find(auth()->id())->update([
+
+                    'name' => $request->name,
+
+                ]);
+                flashy()->info("Profile Has been Updated", '#');
+                return redirect()->back();
+
+            }
+
+        
+
+    }
+    
 }

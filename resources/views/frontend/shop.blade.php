@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title',"Shop")
 @section('content')
 <style>
 
