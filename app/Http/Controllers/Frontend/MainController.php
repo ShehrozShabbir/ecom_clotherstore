@@ -60,6 +60,10 @@ class MainController extends Controller
         if ($categoryProduct) {
             $query->where('category_id', decrypt($request->input('cid')));
         }
+        $brandProduct=$request->query('bid');
+        if ($brandProduct) {
+            $query->where('brand_id', decrypt($request->input('bid')));
+        }
         if ($request->has('size')) {
             $query->where('size', $request->input('size'));
         }
@@ -72,7 +76,7 @@ class MainController extends Controller
         }
         $query->orderBy($o_column, $o_order);
         $saleProducts = $query->paginate($perPage);
-        return view('frontend.shop', compact('AllBrands', 'AllCategories', 'saleProducts', 'Sizes','prange','categoryProduct','price_sort'));
+        return view('frontend.shop', compact('AllBrands', 'AllCategories', 'saleProducts', 'Sizes','prange','categoryProduct','price_sort','brandProduct'));
     }
     public static function getCategory()
     {

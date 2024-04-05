@@ -64,7 +64,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card d-none">
+                                <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
                                     </div>
@@ -73,7 +73,7 @@
                                             <div class="shop__sidebar__brand">
                                                 <ul>
                                                     @foreach ($AllBrands as $brand)
-                                                    <li><a href="{{$brand->id}}">{{$brand->name}}</a></li>
+                                                    <li><a href="/shop?brand={{$brand->name}}&bid={{encrypt($brand->id)}}">{{$brand->name}}</a></li>
                                                     @endforeach
 
                                                 </ul>
@@ -158,7 +158,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>{{$product->name}}</h6>
+                                    <h6>{{$product->name}} {{$brand->name}}</h6>
                                     @php
                                     $NewAmount= $product->selling_price-($product->selling_price*$product->discount)/100;
                                     @endphp
@@ -189,6 +189,7 @@
         </div>
         <form action="" id="frmFilter">
             <input type="hidden" value="{{$categoryProduct}}" name="cid" id="cid">
+            <input type="hidden" value="{{$brandProduct}}" name="bid" id="bid">
             <input type="hidden" value="{{$prange}}" name="price_range" id="price_range">
             <input type="hidden" value="{{$price_sort}}" name="price_sort" id="price_sort_v">
             <input type="hidden" value="" name="product_size" id="product_size">
