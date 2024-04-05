@@ -158,7 +158,7 @@
                                     </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6>{{$product->name}} {{$brand->name}}</h6>
+                                    <h6>{{$product->name}}</h6>
                                     @php
                                     $NewAmount= $product->selling_price-($product->selling_price*$product->discount)/100;
                                     @endphp
