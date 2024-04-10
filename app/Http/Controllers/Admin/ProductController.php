@@ -53,6 +53,7 @@ class ProductController extends Controller
         $metaData = [];
 
         foreach ($request->size as $key => $value) {
+            if(!empty($request->selling_price[$key]) AND !empty($request->buying_price[$key])):
             if ($key == 0) {
                 $validatedData['size'] = $request->size[$key];
                 $NewAmount=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
@@ -62,6 +63,7 @@ class ProductController extends Controller
                 $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
             $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
+            endif;
         }
         $Category=Category::find($request->category_id);
 
@@ -71,7 +73,7 @@ class ProductController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
+                $imageName = time() . '_' .str_replace(' ','',$image->getClientOriginalName());
                 $image->storeAs('public/images', $imageName);
 
                 $product->images()->create([
@@ -120,6 +122,7 @@ class ProductController extends Controller
         $metaData = [];
 
         foreach ($request->size as $key => $value) {
+            if(!empty($request->selling_price[$key]) AND !empty($request->buying_price[$key])):
             if ($key == 0) {
                 $validatedData['size'] = $request->size[$key];
                 $discounted_price=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
@@ -129,6 +132,7 @@ class ProductController extends Controller
                 $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
             $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
+            endif;
         }
 
         $validatedData['product_meta'] = json_encode($metaData);
@@ -167,7 +171,7 @@ class ProductController extends Controller
         // Handle image uploads...
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $imageName = time() . '_' . $image->getClientOriginalName();
+                $imageName = time() . '_'.str_replace(' ','',$image->getClientOriginalName());
                 $image->storeAs('public/images', $imageName);
 
                 $product->images()->create([
@@ -195,7 +199,7 @@ class ProductController extends Controller
 
     public function list()
     {
-        $products = Product::paginate(10);
+        $products = Product::latest()->paginate(10);
         $discountTitles=Discount::where('status',1)->get();
 
         return view('admin.product.list', compact('discountTitles','products'));

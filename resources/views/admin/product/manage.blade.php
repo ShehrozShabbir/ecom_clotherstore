@@ -88,7 +88,7 @@
                                     <div class="col-sm-2">
                                         <label for="selling_price">Selling Price:</label>
                                         <input type="text" name="selling_price[]" id="selling_price" class="form-control"
-                                            required pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
+                                             pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
                                             inputmode="numeric"
                                             value="{{ isset($productMeta[$size->name]) ? $productMeta[$size->name]['selling_price'] : '' }}" />
 
@@ -96,20 +96,20 @@
                                     <div class="col-sm-2">
                                         <label for="buying_price">Buying Price:</label>
                                         <input type="text" name="buying_price[]" id="buying_price" class="form-control"
-                                            required pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
+                                             pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
                                             inputmode="numeric"
                                             value="{{ isset($productMeta[$size->name]) ? $productMeta[$size->name]['buying_price'] : '' }}" />
                                     </div>
                                     <div class="col-sm-2">
                                         <label for="buying_price">Other Price:</label>
                                         <input type="text" name="other_price[]" id="other_price" class="form-control"
-                                            required pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
+                                             pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
                                             inputmode="numeric"
                                             value="{{ isset($productMeta[$size->name]) ? $productMeta[$size->name]['other_price'] : '' }}" />
                                     </div>
                                     <div class="col-sm-3">
                                         <label for="stock_quantity">Stock Quantity:</label>
-                                        <input type="number" name="stock_quantity[]" class="form-control" readonly
+                                        <input type="number" name="stock_quantity[]" class="form-control" 
                                             value="{{ isset($productMeta[$size->name]) ? $productMeta[$size->name]['stock_quantity'] : '' }}" />
                                     </div>
                                 </div>
@@ -123,7 +123,7 @@
                                     <div class="col-sm-2">
                                         <label for="selling_price">Selling Price:</label>
                                         <input type="text" name="selling_price[]" id="selling_price"
-                                            class="form-control" required pattern="[0-9]+([\.][0-9]+)?"
+                                            class="form-control"  pattern="[0-9]+([\.][0-9]+)?"
                                             title="Please enter a valid number" inputmode="numeric"
                                             value="{{ isset($productMeta[$size->name]['selling_price']) ? $productMeta[$size->name]['selling_price'] : '' }}" />
 
@@ -132,21 +132,21 @@
                                     <div class="col-sm-2">
                                         <label for="buying_price">Buying Price:</label>
                                         <input type="text" name="buying_price[]" id="buying_price"
-                                            class="form-control" required pattern="[0-9]+([\.][0-9]+)?"
+                                            class="form-control"  pattern="[0-9]+([\.][0-9]+)?"
                                             title="Please enter a valid number" inputmode="numeric"
                                             value="{{ old('buying_price', $product->buying_price ?? '') }}" />
                                     </div>
                                     <div class="col-sm-2">
                                         <label for="buying_price">Other Price:</label>
                                         <input type="text" name="other_price[]" id="other_price" class="form-control"
-                                            required pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
+                                             pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
                                             inputmode="numeric"
-                                            value="{{ old('other_price', $product->other_price ?? '') }}" />
+                                            value="{{ old('other_price', $product->other_price ?? '0') }}" />
                                     </div>
                                     <div class="col-sm-3">
                                         <label for="stock_quantity">Stock Quantity:</label>
-                                        <input type="number" name="stock_quantity[]" class="form-control" required
-                                            value="{{ old('stock_quantity', $product->stock_quantity ?? '') }}" />
+                                        <input type="number" name="stock_quantity[]" class="form-control" 
+                                            value="{{ old('stock_quantity', $product->stock_quantity ?? '0') }}" />
                                     </div>
                                 </div>
                             @endif
