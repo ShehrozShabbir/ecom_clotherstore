@@ -44,17 +44,18 @@ class ProductController extends Controller
             'name' => 'required',
             'size' => 'required',
             'discount' => 'required',
-            'details' => 'nullable|string',
+            'details' => 'nullable',
             'brand_id' => 'required|exists:brands,id',
             'category_id' => 'required|exists:categories,id',
             'product_label' => 'nullable|in:on_sale,hot,feature,new',
 
         ]);
         $metaData = [];
-
+        $counter=0;
         foreach ($request->size as $key => $value) {
-            if(!empty($request->selling_price[$key]) AND !empty($request->buying_price[$key])):
-            if ($key == 0) {
+            if(!$this->IsNullOrEmptyString($request->selling_price[$key]) AND !$this->IsNullOrEmptyString($request->buying_price[$key])):
+
+            if ($counter == 0) {
                 $validatedData['size'] = $request->size[$key];
                 $NewAmount=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
                 $validatedData['selling_price'] = $request->selling_price[$key];
@@ -63,12 +64,13 @@ class ProductController extends Controller
                 $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
             $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
-            endif;
+            $counter++;   
+        endif;
         }
         $Category=Category::find($request->category_id);
-
         $validatedData['main_category']=$Category->main_category;
         $validatedData['product_meta'] = json_encode($metaData);
+ 
         $product = Product::create($validatedData);
 
         if ($request->hasFile('images')) {
@@ -120,10 +122,11 @@ class ProductController extends Controller
         //     ]);
         // }
         $metaData = [];
-
+        $counter=0;
         foreach ($request->size as $key => $value) {
-            if(!empty($request->selling_price[$key]) AND !empty($request->buying_price[$key])):
-            if ($key == 0) {
+            if(!$this->IsNullOrEmptyString($request->selling_price[$key]) AND !$this->IsNullOrEmptyString($request->buying_price[$key])):
+    
+            if ($counter == 0) {
                 $validatedData['size'] = $request->size[$key];
                 $discounted_price=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
                 $validatedData['selling_price'] = $request->selling_price[$key];
@@ -132,7 +135,8 @@ class ProductController extends Controller
                 $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
             }
             $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
-            endif;
+        $counter++;    
+        endif;
         }
 
         $validatedData['product_meta'] = json_encode($metaData);
@@ -196,7 +200,9 @@ class ProductController extends Controller
 
         return redirect()->route('admin.product.list')->with('status', 'Product updated successfully!');
     }
-
+   public function IsNullOrEmptyString($str){
+        return ($str === null || trim($str) === '');
+    }
     public function list()
     {
         $products = Product::latest()->paginate(10);
