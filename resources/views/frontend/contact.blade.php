@@ -1,4 +1,5 @@
 @extends('layouts.frontend')
+@section('title',"Contact us")
 @section('content')
 <main>
     <!-- Map Begin -->

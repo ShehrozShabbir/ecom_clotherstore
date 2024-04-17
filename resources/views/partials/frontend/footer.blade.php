@@ -14,6 +14,7 @@
 
                         </div>
                          <p>Things you needed All are available here Just Shop now.</p>
+                         <p>WhatsApp/Call: <b>0741 084 299</b></p>
 
                     </div>
                 </div>

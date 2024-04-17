@@ -42,6 +42,7 @@ class ProductController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required',
+            'delivery_price' => 'required',
             'size' => 'required',
             'discount' => 'required',
             'details' => 'nullable',
@@ -52,20 +53,21 @@ class ProductController extends Controller
         ]);
         $metaData = [];
         $counter=0;
+
         foreach ($request->size as $key => $value) {
             if(!$this->IsNullOrEmptyString($request->selling_price[$key]) AND !$this->IsNullOrEmptyString($request->buying_price[$key])):
 
-            if ($counter == 0) {
-                $validatedData['size'] = $request->size[$key];
-                $NewAmount=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
-                $validatedData['selling_price'] = $request->selling_price[$key];
-                $validatedData['discounted_price'] = $NewAmount;
-                $validatedData['buying_price'] = $request->buying_price[$key];
-                $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
-            }
-            $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
-            $counter++;   
-        endif;
+                if ($counter == 0) {
+                    $validatedData['size'] = $request->size[$key];
+                    $NewAmount=$request->selling_price[$key]-($request->selling_price[$key]*$request->discount)/100;
+                    $validatedData['selling_price'] = $request->selling_price[$key];
+                    $validatedData['discounted_price'] = $NewAmount;
+                    $validatedData['buying_price'] = $request->buying_price[$key];
+                    $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
+                }
+                $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
+                $counter++;   
+             endif;
         }
         $Category=Category::find($request->category_id);
         $validatedData['main_category']=$Category->main_category;

@@ -1,4 +1,6 @@
-@extends('layouts.frontend') @section('content')
+@extends('layouts.frontend') 
+@section('title',"Checkout")
+@section('content')
 <main>
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
@@ -111,27 +113,29 @@
                                     @php
                                     $total+=$details['discountedPrice']*$details['quantity'];
                                     @endphp @endforeach @endif
+                                    @php
+                                        
+                                    @endphp
                                 </ul>
                                 <ul class="checkout__total__all">
                                     <li>
                                         Subtotal <span>{{ $total }} LKR</span>
+                                        
+                                    </li>
+                            
+                                    <li>
+                                        Delivery Charges <span>Free Delivery</span>
                                     </li>
                                     <li>
                                         Total <span>{{ $total }} LKR</span>
                                     </li>
                                 </ul>
 
-                                <div class="checkout__input__checkbox d-none">
-                                    <label for="payment">
-                                        Check Payment
-                                        <input type="checkbox" id="payment" />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
-                                <div class="checkout__input__checkbox d-none">
+                                
+                                <div class="checkout__input__checkbox ">
                                     <label for="paypal">
-                                        Paypal
-                                        <input type="checkbox" id="paypal" />
+                                        Payment Type : Cash on delivery
+                                        <input disabled checked type="checkbox" id="paypal" />
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
