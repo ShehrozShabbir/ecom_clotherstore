@@ -42,7 +42,6 @@ class ProductController extends Controller
 
         $validatedData = $request->validate([
             'name' => 'required',
-            'delivery_price' => 'required',
             'size' => 'required',
             'discount' => 'required',
             'details' => 'nullable',
@@ -66,6 +65,7 @@ class ProductController extends Controller
                     $validatedData['stock_quantity'] = ($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0;
                 }
                 $metaData[$value] = ['selling_price' => $request->selling_price[$key], 'buying_price' => $request->buying_price[$key], 'other_price' => $request->other_price[$key], 'stock_quantity' =>($request->stock_quantity[$key])?(int)$request->stock_quantity[$key]:0];
+            
                 $counter++;   
              endif;
         }

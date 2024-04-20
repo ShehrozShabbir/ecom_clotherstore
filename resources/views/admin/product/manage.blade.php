@@ -134,19 +134,19 @@
                                         <input type="text" name="buying_price[]" id="buying_price"
                                             class="form-control"  pattern="[0-9]+([\.][0-9]+)?"
                                             title="Please enter a valid number" inputmode="numeric"
-                                            value="{{ old('buying_price', $product->buying_price ?? '') }}" />
+                                            value="" />
                                     </div>
                                     <div class="col-sm-2">
                                         <label for="buying_price">Other Price:</label>
                                         <input type="text" name="other_price[]" id="other_price" class="form-control"
                                              pattern="[0-9]+([\.][0-9]+)?" title="Please enter a valid number"
                                             inputmode="numeric"
-                                            value="{{ old('other_price', $product->other_price ?? '0') }}" />
+                                            value="" />
                                     </div>
                                     <div class="col-sm-3">
                                         <label for="stock_quantity">Stock Quantity:</label>
                                         <input type="number" name="stock_quantity[]" class="form-control" 
-                                            value="{{ old('stock_quantity', $product->stock_quantity ?? '0') }}" />
+                                            value="" />
                                     </div>
                                 </div>
                             @endif
